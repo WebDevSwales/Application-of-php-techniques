@@ -1,0 +1,57 @@
+$('#earthRun').click(function() {
+    
+    $.ajax({
+        url: "libs/php/getEarthquakeInfo.php",
+        type: 'POST',
+        dataType: 'json',
+        data:{
+            country: $('#selCountry').val(),
+            lang: $('#selLanguage').val()
+        },
+        success: function(result) {
+            
+            console.log(result);
+
+            if (result.status.name == "ok") {
+                console.log("success");
+                $('#txt').html(result['data'][0]['magnitude']);
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // your error code
+        }
+    }); 
+
+});
+
+$('#timeRun').click(function() {
+    console.log('button clicked');
+
+    $.ajax({
+        url: "libs/php/getTimeInfo.php",
+        type: 'POST',
+        dataType: 'json',
+        data:{
+            country: $('#selCountry').val(),
+            lang: $('#selLanguage').val()
+        },
+        
+        success: function(result) {
+            
+            console.log(result);
+
+            if (result.status.name == "ok") {
+                console.log("success");
+                $('#txtTime').html(result['data']['sunset']);
+                
+            }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // your error code
+        }
+    }); 
+
+});
